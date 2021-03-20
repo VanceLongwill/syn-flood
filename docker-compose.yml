@@ -13,7 +13,8 @@ services:
     networks:
       vpcbr:
         ipv4_address: 10.5.0.6
-    command: sudo hping3 10.5.0.7 -S -p 22
+    # remove the --flood flag to wait for ACKs before sending new packets
+    command: sudo hping3 10.5.0.7 -S -a 10.5.0.8 -p 22 --flood
 
   victim-1:
     build:

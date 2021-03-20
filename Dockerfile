@@ -2,10 +2,8 @@ FROM kalilinux/kali-rolling
 RUN apt-get -y update
 RUN apt-get install -y sudo
 RUN apt-get install -y man-db exploitdb
-RUN apt-get install -y mininet
 RUN apt-get install -y tcpdump iputils-ping
-RUN apt-get install -y wireshark tshark
-RUN apt-get install -y tmux
+RUN apt-get install -y tshark
 RUN apt-get install -y hping3
 ARG username
 RUN useradd -rm -d /home/$username -s /bin/bash -g root -G sudo -u 1001 $username
