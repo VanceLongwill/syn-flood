@@ -6,7 +6,7 @@ This is a self contained example using docker-compose to orchestrate.
 
 - `attacker_1` performs the SYN flooding, spoofing the IP of `victim_2` to give the appearance that `victim_2` is the attacker
 - `victim_1` is the main victim of the DoS attack
-- `victim_2` is only used for misdirection
+- `victim_2` is the second victim and receives the reply packets from `victim_1`
 
 ##### Prerequisites
 
@@ -28,7 +28,7 @@ docker logs -f attacker
 
 The logs show the output of the [hping3](https://tools.kali.org/information-gathering/hping3) command, used here to perform the SYN flooding
 
-2. From the DoS victim's perspective
+2. From the recipient of the SYN packets
 
 ```bash
 docker logs -f victim_1
@@ -36,6 +36,11 @@ docker logs -f victim_1
 
 The `victim_1` container runs a [tshark](https://www.wireshark.org/docs/wsug_html_chunked/AppToolstshark.html) command which captures all TCP packets on the eth0 interface
 
+3. From the second victim, to which the first victim replies
+
+```bash
+docker logs -f victim_2
+```
 
 ### Shutdown the attack (and containers)
 

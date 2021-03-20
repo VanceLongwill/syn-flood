@@ -38,6 +38,7 @@ services:
     networks:
       vpcbr:
         ipv4_address: 10.5.0.8
+    command: sudo tshark -i eth0 -f tcp
 
 networks:
   vpcbr:
