@@ -1,0 +1,47 @@
+version: "3"
+services:
+  attacker:
+    build:
+      context: .
+      args:
+        - username=attacker
+    tty: true
+    container_name: attacker
+    depends_on:
+      - victim-1
+      - victim-2
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.6
+    command: sudo hping3 10.5.0.7 -S -p 22
+
+  victim-1:
+    build:
+      context: .
+      args:
+        - username=victim_1
+    tty: true
+    container_name: victim_1
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.7
+    command: sudo tshark -i eth0 -f tcp
+
+  victim-2:
+    build:
+      context: .
+      args:
+        - username=victim_2
+    tty: true
+    container_name: victim_2
+    networks:
+      vpcbr:
+        ipv4_address: 10.5.0.8
+
+networks:
+  vpcbr:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.5.0.0/16
+         gateway: 10.5.0.1
