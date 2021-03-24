@@ -5,6 +5,8 @@ RUN apt-get install -y man-db exploitdb
 RUN apt-get install -y tcpdump iputils-ping
 RUN apt-get install -y tshark
 RUN apt-get install -y hping3
+RUN apt-get install -y openssh-server
+RUN apt-get install -y nmap
 ARG username
 RUN useradd -rm -d /home/$username -s /bin/bash -g root -G sudo -u 1001 $username
 # remove the user password

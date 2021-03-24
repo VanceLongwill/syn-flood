@@ -26,7 +26,11 @@ services:
     networks:
       vpcbr:
         ipv4_address: 10.5.0.7
-    command: sudo tshark -i eth0 -f tcp
+    entrypoint: ["/bin/bash","-c"]
+    command:
+      - |
+        sudo service ssh start # start the ssh daemon so that port 22 is open
+        sudo tshark -i eth0 -f tcp
 
   victim-2:
     build:
@@ -38,7 +42,11 @@ services:
     networks:
       vpcbr:
         ipv4_address: 10.5.0.8
-    command: sudo tshark -i eth0 -f tcp
+    entrypoint: ["/bin/bash","-c"]
+    command:
+      - |
+        sudo service ssh start # start the ssh daemon so that port 22 is open
+        sudo tshark -i eth0 -f tcp
 
 networks:
   vpcbr:
